@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Downloader</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        input, button { margin: 10px; padding: 10px; width: 80%; max-width: 500px; }
+    </style>
+</head>
+<body>
+    <h2>Download YouTube, Instagram & Facebook Videos</h2>
+    <input type="text" id="videoUrl" placeholder="Paste video URL here...">
+    <button onclick="downloadVideo()">Download</button>
+  <iframe style="border-radius:24px;border:none" src="https://embed.creator-spring.com/widget?slug=sufashion&per=20&currency=&page=1&layout=carousel-small&theme=light" title="TRENDY T=EEZONE Merch store powered by Spring" width="100%" height="420" data-reactroot=""></iframe>
+    <script>
+        function downloadVideo() {
+            const url = document.getElementById("videoUrl").value;
+            if (!url) return alert("Please enter a video URL");
+
+            fetch(`http://localhost:3000/download?url=${encodeURIComponent(url)}`)
+                .then(response => response.blob())
+                .then(blob => {
+                    const link = document.createElement("a");
+                    link.href = URL.createObjectURL(blob);
+                    link.download = "video.mp4";
+                    link.click();
+                })
+                .catch(error => alert("Download failed!"));
+        }
+    </script>
+</body>
+</html>
